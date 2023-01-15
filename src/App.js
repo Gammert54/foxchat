@@ -8,12 +8,6 @@ import 'firebase/compat/analytics';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import {
-  isPushNotificationSupported,
-  sendNotification,
-  initializePushNotifications,
-  registerServiceWorker
-} from './notifications.js';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCcorQBu-fmGkNflH4reeSd-z_O0DJ4uBg',
@@ -21,31 +15,23 @@ firebase.initializeApp({
   projectId: 'foxchat-90931',
   storageBucket: 'foxchat-90931.appspot.com',
   messagingSenderId: '803019859609',
-  appId: '1:803019859609:web:ccb87fdad5930b2c10ba08',
-  measurementId: 'G-DQ5SG1G67Y'
+  appId: '1:803019859609:web:22f6c59e53c682dc10ba08',
+  measurementId: 'G-8V2QGJ1SQW'
 });
+
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-var canSendPushNotification;
-function App() {
-  const pushNotificationSuported = isPushNotificationSupported();
-  if (pushNotificationSuported) {
-    registerServiceWorker();
-    initializePushNotifications().then(function (consent) {
-      if (consent === 'granted') {
-        canSendPushNotification = true;
-      }
-    });
-  }
-  const [user] = useAuthState(auth);
+const analytics = firebase.analytics();
 
+function App() {
+  const [user] = useAuthState(auth);
   return (
     <div className='App'>
       <header>
-        <h1>FOXXOCHAT</h1>
-        <SignOut />
+        {user && <i className='fa-solid fa-bars hamburger-icon'></i>}
+        <h1>FOXXOTALK</h1>
       </header>
-
+      {user && <SideBar />}
       <section>{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
@@ -80,7 +66,7 @@ function SignOut() {
 function ChatRoom() {
   const dummy = useRef();
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt');
 
   const [messages] = useCollectionData(query, { idField: 'id' });
 
@@ -115,10 +101,10 @@ function ChatRoom() {
         <input
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
-          placeholder='Say something Cool 😊'
+          placeholder='Message...'
         />
 
-        <button type='submit' id='send' disabled={!formValue}>
+        <button type='submit' disabled={!formValue}>
           <i className='fa-solid fa-paper-plane'></i>
         </button>
       </form>
@@ -130,7 +116,7 @@ function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-  
+
   return (
     <>
       <div className={`message ${messageClass}`}>
@@ -138,11 +124,23 @@ function ChatMessage(props) {
           src={
             photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'
           }
-          alt={photoURL}
         />
         <p>{text}</p>
       </div>
     </>
+  );
+}
+function SideBar() {
+  const { uid } = auth.currentUser;
+  const messagesRef = firestore.collection('chats');
+  console.log(messagesRef);
+  const query = messagesRef.orderBy('name');
+  const [chatRooms] = useCollectionData(query, { idField: 'id' });
+  return (
+    <div className='sidebar' id='sidebar'>
+      <i className='fa-solid fa-bars hamburger-icon'></i>
+      <SignOut />
+    </div>
   );
 }
 

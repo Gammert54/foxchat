@@ -19,4 +19,11 @@
     <div id="root"></div>
 <!-- If you do not see anything on this page you might have to enable JavaScript or use a newer browser! -->
   </body>
+  <script>
+    Object.values(document.getElementsByClassName('hamburger-icon')).forEach(element => {
+      element.addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('closed');
+      })
+    });
+  </script>
 </html>
