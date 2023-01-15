@@ -20,7 +20,6 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-const analytics = firebase.analytics();
 
 function App() {
   const [user] = useAuthState(auth);
@@ -46,11 +45,9 @@ function SignIn() {
   return (
     <>
       <button className='sign-in' onClick={signInWithGoogle}>
-        Sign in with Google
+        Sign in with <span className='google-colors-text'>Google</span>
       </button>
-      <p>
-        Do not violate the community guidelines or you will be banned for life!
-      </p>
+      <p>More options will be available later on.</p>
     </>
   );
 }
@@ -106,8 +103,8 @@ function ChatRoom() {
           placeholder='Say something Cool 😊'
         />
 
-        <button type='submit' disabled={!formValue}>
-          📨
+        <button type='submit' id='send' disabled={!formValue}>
+          <i className='fa-solid fa-paper-plane'></i>
         </button>
       </form>
     </>
@@ -126,6 +123,7 @@ function ChatMessage(props) {
           src={
             photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'
           }
+          alt={photoURL}
         />
         <p>{text}</p>
       </div>
