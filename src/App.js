@@ -130,11 +130,7 @@ function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-  if (messageClass === 'received') {
-    if (canSendPushNotification === true) {
-      sendNotification();
-    }
-  }
+  
   return (
     <>
       <div className={`message ${messageClass}`}>
