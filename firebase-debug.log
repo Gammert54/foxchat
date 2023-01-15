@@ -1,0 +1,25 @@
+[debug] [2023-01-14T20:49:24.622Z] ----------------------------------------------------------------------
+[debug] [2023-01-14T20:49:24.624Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\USER\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2023-01-14T20:49:24.624Z] CLI Version:   11.20.0
+[debug] [2023-01-14T20:49:24.624Z] Platform:      win32
+[debug] [2023-01-14T20:49:24.624Z] Node Version:  v16.16.0
+[debug] [2023-01-14T20:49:24.625Z] Time:          Sat Jan 14 2023 21:49:24 GMT+0100 (Central European Standard Time)
+[debug] [2023-01-14T20:49:24.626Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-01-14T20:49:24.692Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-01-14T20:49:24.693Z] > authorizing via signed-in user (gammert54@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\USER\Desktop\FoxChat\foxchat
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
