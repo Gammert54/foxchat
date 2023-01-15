@@ -26,7 +26,7 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const firestore = firebase.firestore();
- var canSendPushNotification;
+var canSendPushNotification;
 function App() {
   const pushNotificationSuported = isPushNotificationSupported();
   if (pushNotificationSuported) {
@@ -130,7 +130,7 @@ function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-  if (auth.currentUser.uid === 'received') {
+  if (messageClass === 'received') {
     if (canSendPushNotification === true) {
       sendNotification();
     }
