@@ -8,6 +8,12 @@ import 'firebase/compat/analytics';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import {
+  isPushNotificationSupported,
+  sendNotification,
+  initializePushNotifications,
+  registerServiceWorker
+} from './notifications.js';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCcorQBu-fmGkNflH4reeSd-z_O0DJ4uBg',
@@ -20,8 +26,17 @@ firebase.initializeApp({
 });
 const auth = firebase.auth();
 const firestore = firebase.firestore();
-
+ var canSendPushNotification;
 function App() {
+  const pushNotificationSuported = isPushNotificationSupported();
+  if (pushNotificationSuported) {
+    registerServiceWorker();
+    initializePushNotifications().then(function (consent) {
+      if (consent === 'granted') {
+        canSendPushNotification = true;
+      }
+    });
+  }
   const [user] = useAuthState(auth);
 
   return (
@@ -115,7 +130,11 @@ function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
 
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
-
+  if (auth.currentUser.uid === 'received') {
+    if (canSendPushNotification === true) {
+      sendNotification();
+    }
+  }
   return (
     <>
       <div className={`message ${messageClass}`}>
