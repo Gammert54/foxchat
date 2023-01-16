@@ -28,7 +28,6 @@ function App() {
   return (
     <div className='App'>
       <header>
-        {user && <i className='fa-solid fa-bars hamburger-icon'></i>}
         <h1>FOXXOTALK</h1>
       </header>
       {user && <SideBar />}
@@ -131,16 +130,24 @@ function ChatMessage(props) {
   );
 }
 function SideBar() {
-  const { uid } = auth.currentUser;
-  const messagesRef = firestore.collection('chats');
-  console.log(messagesRef);
-  const query = messagesRef.orderBy('name');
-  const [chatRooms] = useCollectionData(query, { idField: 'id' });
+  const [isActive, setActive] = useState(false);
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+  //  Firebase Stuffs
+  // const { uid } = auth.currentUser;
+  // const messagesRef = firestore.collection('chats');
+  // console.log(messagesRef);
+  // const query = messagesRef.orderBy('name');
+  // const [chatRooms] = useCollectionData(query, { idField: 'id' });
   return (
-    <div className='sidebar' id='sidebar'>
-      <i className='fa-solid fa-bars hamburger-icon'></i>
-      <SignOut />
-    </div>
+    <>
+      <div className={isActive ? 'sidebar' : 'sidebar closed'} id='sidebar'>
+        <SignOut />
+      </div>
+      <i className='fa-solid fa-bars hamburger-icon' onClick={handleToggle}></i>
+    </>
   );
 }
 

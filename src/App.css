@@ -11,6 +11,7 @@ body {
   text-align: center;
   max-width: 728px;
   margin: 0 auto;
+  position: relative;
 }
 
 .App header {
@@ -37,7 +38,10 @@ body {
   min-height: 100vh;
   background-color: rgb(40, 37, 53);
 }
-
+.App header > h1 {
+  position: absolute;
+  right: 1rem;
+}
 main {
   padding: 10px;
   height: 80vh;
@@ -209,13 +213,9 @@ img {
   border-radius: 50%;
   margin: 2px 5px;
 }
-.hamburger-icon {
-  font-size: 1.2rem;
-  margin-left: 1.2rem;
-  cursor: pointer;
-}
-.closed{
-  left: -12rem;
+
+.closed {
+  left: -100vw;
 }
 .sidebar {
   position: absolute;
@@ -232,12 +232,17 @@ img {
   -webkit-box-shadow: 14px 0px 26px -6px rgba(0, 0, 0, 0.78);
   -moz-box-shadow: 14px 0px 26px -6px rgba(0, 0, 0, 0.78);
   box-shadow: 14px 0px 26px -6px rgba(0, 0, 0, 0.78);
+  padding-top: 5rem;
 }
-.sidebar > i {
-  width: 100%;
-  height: min-content;
-  margin: 0;
-  padding: 0;
+.hamburger-icon {
+  position: absolute;
+  z-index: 300;
+  font-size: 1.2rem;
+  cursor: pointer;
+  left: 4.5rem;
+  transform: translateX(-50%);
+  color: #777;
+  top: 1.7rem;
 }
 .sidebar > button {
   width: 100%;
